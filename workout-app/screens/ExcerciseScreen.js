@@ -22,7 +22,7 @@ const exercises = [
     }
 ]
 
-function Excercises() {
+function ExcerciseScreen() {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredExercises, setFilteredExercises] = useState(exercises);
@@ -40,7 +40,7 @@ function Excercises() {
     return (
         <View style={styles.container}>
             <Searchbar
-                placeholder='Search for exercise'
+                placeholder='Search for exercises '
                 onChangeText={onChangeSearch}
                 value={searchQuery}
             />
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Excercises
+export default ExcerciseScreen

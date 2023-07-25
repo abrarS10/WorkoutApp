@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from './screens/HomeScreen';
-import Excercises from './screens/Excercises';
+import ExcerciseScreen from './screens/ExcerciseScreen';
 import Workouts from './screens/Workouts';
 import Progress from './screens/Progress';
 
@@ -29,7 +29,7 @@ export default function App() {
         />
         <Tab.Screen
           name='Excercises'
-          component={Excercises}
+          component={ExcerciseScreen}
           options={{
             tabBarIcon: ({color}) => (
               <MaterialCommunityIcons name="hammer" color={color} size={26}/>
