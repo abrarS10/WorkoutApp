@@ -1,5 +1,5 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import {Card, Avatar, Searchbar} from 'react-native-paper'
 
 //NOTE: temporary placeholder excercises
@@ -23,24 +23,42 @@ const exercises = [
 ]
 
 function Excercises() {
-  return (
-    <View style={styles.container}>
-        <Searchbar placeholder='Search for exercise'/>
-        <View style={styles.exerciseListContainer}>
-            {exercises.map((exercise) => (
-                <Card mode='elevated' style={styles.exerciseCard}>
-                    <Card.Title
-                        key={exercise.id}
-                        title={exercise.name}
-                        titleStyle={styles.exerciseName}
-                        subtitle={exercise.muscleGroup}
-                        left={(props) => <Avatar.Image {...props} icon="folder" />}
-                    />
-                </Card>
-            ))}
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredExercises, setFilteredExercises] = useState(exercises);
+
+    const onChangeSearch = (query) => {
+        setSearchQuery(query);
+        const filtered = exercises.filter(
+            (exercise) =>
+            exercise.name.toLowerCase().includes(query.toLowerCase()) ||
+            exercise.muscleGroup.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredExercises(filtered);
+    };
+
+    return (
+        <View style={styles.container}>
+            <Searchbar
+                placeholder='Search for exercise'
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+            />
+            <View style={styles.exerciseListContainer}>
+                {filteredExercises.map((exercise) => (
+                    <Card mode='elevated' style={styles.exerciseCard}>
+                        <Card.Title
+                            key={exercise.id}
+                            title={exercise.name}
+                            titleStyle={styles.exerciseName}
+                            subtitle={exercise.muscleGroup}
+                            left={(props) => <Avatar.Image {...props} icon="folder" />}
+                        />
+                    </Card>
+                ))}
+            </View>
         </View>
-    </View>
-  )
+    )
 }
 
 const styles = StyleSheet.create({
