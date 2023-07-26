@@ -52,7 +52,7 @@ function ExcerciseScreen() {
     return(
         <Stack.Navigator>
             <Stack.Screen name="ExcerciseScreen" component={ExcerciseListContent} options={{ headerShown: false }} />
-            <Stack.Screen name="ExerciseDetail" component={ExerciseDetailScreen} options={{ title: 'Exercise Detail' }} />
+            <Stack.Screen name="ExerciseDetail" component={ExerciseDetailScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 
