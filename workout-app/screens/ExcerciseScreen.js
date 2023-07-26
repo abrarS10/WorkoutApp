@@ -7,17 +7,19 @@ const exercises = [
     {
         id: '1',
         name: 'Bench Press',
-        muscleGroup: 'Chest',
+        primaryMuscle: 'Chest',
+        additionalMuscles: ['Shoulders', 'Triceps'],
         description: 'Lie flat on a bench and push the bar up',
-        equipment: 'bench, barbell, weight plates',
+        equipment: ['Flat bench', 'Barbell', 'Weight plates'],
         gifUrl: 'www.abc.com'
     },
     {
         id: '2',
         name: 'Squat',
-        muscleGroup: 'Legs',
+        primaryMuscle: 'Legs',
+        additionalMuscles: ['Glutes'],
         description: 'Hold barbell on traps and squat down and lift back up',
-        equipment: 'squat rack, barbell, weight plates',
+        equipment: ['Squat rack, Barbell, Weight plates'],
         gifUrl: 'www.abc.com'
     }
 ]
@@ -32,7 +34,7 @@ function ExcerciseScreen() {
         const filtered = exercises.filter(
             (exercise) =>
             exercise.name.toLowerCase().includes(query.toLowerCase()) ||
-            exercise.muscleGroup.toLowerCase().includes(query.toLowerCase())
+            exercise.primaryMuscle.toLowerCase().includes(query.toLowerCase())
         );
         setFilteredExercises(filtered);
     };
@@ -46,12 +48,11 @@ function ExcerciseScreen() {
             />
             <View style={styles.exerciseListContainer}>
                 {filteredExercises.map((exercise) => (
-                    <Card mode='elevated' style={styles.exerciseCard}>
+                    <Card mode='elevated' key={exercise.id} style={styles.exerciseCard}>
                         <Card.Title
-                            key={exercise.id}
                             title={exercise.name}
                             titleStyle={styles.exerciseName}
-                            subtitle={exercise.muscleGroup}
+                            subtitle={exercise.primaryMuscle}
                             left={(props) => <Avatar.Image {...props} icon="folder" />}
                         />
                     </Card>
@@ -71,8 +72,8 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     exerciseCard: {
-        marginBottom: 8,
-        borderRadius: 8,
+        marginBottom: 3,
+        borderRadius: 15,
         backgroundColor: '#FFFFFF',
     },
     exerciseName: {
