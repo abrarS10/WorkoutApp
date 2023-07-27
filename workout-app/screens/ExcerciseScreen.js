@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
 import React, {useState} from 'react'
 import {Card, Avatar, Searchbar} from 'react-native-paper'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
