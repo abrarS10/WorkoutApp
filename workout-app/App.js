@@ -26,7 +26,7 @@ export default function App() {
             component={HomeScreen}
             options={{
               tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons name="calendar-today" color={color} size={26}/>
+                <MaterialCommunityIcons name="home" color={color} size={26}/>
               ),
             }}
           />
@@ -44,7 +44,7 @@ export default function App() {
             component={ExcerciseScreen}
             options={{
               tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons name="hammer" color={color} size={26}/>
+                <MaterialCommunityIcons name="weight" color={color} size={26}/>
               ),
             }}
           />
