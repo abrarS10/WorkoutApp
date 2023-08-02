@@ -4,30 +4,10 @@ import {Card, Avatar, Searchbar} from 'react-native-paper'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 import ExerciseDetailScreen from './ExerciseDetailScreen'
+import { exercises } from '../data/exercises';
 
 const Stack = createNativeStackNavigator();
 
-//NOTE: temporary placeholder excercises
-const exercises = [
-    {
-        id: '1',
-        name: 'Bench Press',
-        primaryMuscle: 'Chest',
-        additionalMuscles: ['Shoulders', 'Triceps'],
-        description: 'Lie flat on a bench and push the bar up',
-        equipment: ['Flat bench', 'Barbell', 'Weight plates'],
-        gifUrl: 'www.abc.com'
-    },
-    {
-        id: '2',
-        name: 'Squat',
-        primaryMuscle: 'Legs',
-        additionalMuscles: ['Glutes'],
-        description: 'Hold barbell on traps and squat down and lift back up',
-        equipment: ['Squat rack, Barbell, Weight plates'],
-        gifUrl: 'www.abc.com'
-    }
-]
 
 function ExcerciseScreen() {
 

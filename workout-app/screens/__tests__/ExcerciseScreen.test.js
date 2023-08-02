@@ -45,14 +45,14 @@ test('filters exercises based on search', () => {
 
   // Type 'Chest' in the Searchbar
   const searchbar = getByPlaceholderText('Search for exercises ');
-  fireEvent.changeText(searchbar, 'Chest');
+  fireEvent.changeText(searchbar, 'Le');
 
   // Check if Exercise Card with 'Bench Press' is visible
-  const exercise1Card = queryByText('Bench Press');
+  const exercise1Card = queryByText('Squat');
   expect(exercise1Card).toBeDefined();
 
   // Check if Exercise Card with 'Squat' is hidden
-  const exercise2Card = queryByText('Squat');
+  const exercise2Card = queryByText('Bench Press');
   expect(exercise2Card).toBeNull();
 });
 
