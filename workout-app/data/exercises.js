@@ -17,6 +17,6 @@ const exercises = [
         equipment: ['Squat rack, Barbell, Weight plates'],
         gifUrl: 'www.abc.com'
     }
-]
+];
 
 export default exercises;

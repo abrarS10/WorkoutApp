@@ -4,26 +4,15 @@ import {Card, Avatar, Searchbar} from 'react-native-paper'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 import ExerciseDetailScreen from './ExerciseDetailScreen'
-import { exercises } from '../data/exercises';
+import exercises  from '../data/exercises';
 
 const Stack = createNativeStackNavigator();
 
 
 function ExcerciseScreen() {
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredExercises, setFilteredExercises] = useState(exercises);
-    const navigation = useNavigation();
 
-    const onChangeSearch = (query) => {
-        setSearchQuery(query);
-        const filtered = exercises.filter(
-            (exercise) =>
-            exercise.name.toLowerCase().includes(query.toLowerCase()) ||
-            exercise.primaryMuscle.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredExercises(filtered);
-    };
+    const navigation = useNavigation();
 
     const handleExercisePress = (exercise) => {
         navigation.navigate('ExerciseDetail', {exercise});
@@ -37,6 +26,19 @@ function ExcerciseScreen() {
     )
 
     function ExcerciseListContent() {
+        const [searchQuery, setSearchQuery] = useState('');
+        const [filteredExercises, setFilteredExercises] = useState(exercises);
+
+        const onChangeSearch = (query) => {
+            setSearchQuery(query);
+            const filtered = exercises.filter(
+                (exercise) =>
+                exercise.name.toLowerCase().includes(query.toLowerCase()) ||
+                exercise.primaryMuscle.toLowerCase().includes(query.toLowerCase())
+            );
+            setFilteredExercises(filtered);
+        };
+
 
         return (
             <View style={styles.container}>

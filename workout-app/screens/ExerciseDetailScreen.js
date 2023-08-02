@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
 import {Card, Title, Subheading, Paragraph} from 'react-native-paper'
-import {ExerciseHistory} from '../data/workoutHistory';
+import ExerciseHistory from '../data/exerciseHistory';
 
 
 const ExerciseDetailScreen = ({route}) => {
