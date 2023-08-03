@@ -12,17 +12,29 @@ const ExerciseDetailScreen = ({route}) => {
       (history) => history.exerciseId === exerciseId
     );
 
+  // TODO: Fetch only the most recent date for the exercise to display on the details page, and show rest of the history on seperate history page
+  //   const exerciseHistoryForCurrentExercise = exerciseHistory
+  //     .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
+  //     .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Get the most recent date for the current exercise
+  //   const mostRecentDate = exerciseHistoryForCurrentExercise.length
+  //     ? exerciseHistoryForCurrentExercise[0].date
+  //     : null;
+
     return (
         <ScrollView style={styles.container}>
           <ImageBackground source={{ uri: exercise.imageUrl }} style={styles.imageBackground}>
             <View style={styles.imageOverlay}>
-              <Title style={styles.exerciseName}>{exercise.name}</Title>
+
             </View>
           </ImageBackground>
           <Card style={styles.exerciseCard}>
             <Card.Content>
-              <Subheading style={styles.primaryMuscles}>Primary Muscles: {exercise.additonalMuscles}</Subheading>
-              <Paragraph style={styles.description}>{exercise.description}</Paragraph>
+              <Subheading style={styles.exerciseName}>{exercise.name}</Subheading>
+              <Subheading style={styles.primaryMuscles}>Primary Muscles: {exercise.primaryMuscle}</Subheading>
+              <Subheading style={styles.equipment}>Secondary Muscles: {exercise.additionalMuscles.join(', ')}</Subheading>
+              <Paragraph style={styles.description}>Instructions: {exercise.description}</Paragraph>
               <Paragraph style={styles.equipment}>Necessary Equipment: {exercise.equipment.join(', ')}</Paragraph>
               {exercise.notes && <Paragraph style={styles.notes}>Notes: {exercise.notes}</Paragraph>}
             </Card.Content>
@@ -49,41 +61,40 @@ const ExerciseDetailScreen = ({route}) => {
 
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
+      flex: 1,
     },
     imageBackground: {
-    width: '100%',
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
+      width: '100%',
+      height: 200,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     imageOverlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    padding: 16,
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      padding: 16,
     },
     exerciseName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
     exerciseCard: {
-    margin: 16,
-    elevation: 4,
+      margin: 16,
+      elevation: 4,
     },
     primaryMuscles: {
-    marginVertical: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
+      marginVertical: 8,
+      fontSize: 16,
+      fontWeight: 'bold',
     },
     description: {
-    marginBottom: 16,
+      marginBottom: 16,
     },
     equipment: {
-    marginBottom: 16,
+      marginBottom: 16,
     },
     notes: {
-    marginBottom: 16,
+      marginBottom: 16,
     },
 });
 export default ExerciseDetailScreen
