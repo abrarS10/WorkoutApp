@@ -1,18 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
-import {Card, Title, Subheading, Paragraph, Button} from 'react-native-paper'
+import {Card, Title, Subheading, Paragraph, Button, Portal} from 'react-native-paper'
 import exerciseHistory from '../data/exerciseHistory';
-
+import ExerciseHistoryModal from './ExerciseHistoryModal';
 
 const ExerciseDetailScreen = ({route}) => {
     const { exercise } = route.params;
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const exerciseId = exercise.id;
-    // const exerciseHistoryForCurrentExercise = exerciseHistory.filter(
-    //   (history) => history.exerciseId === exerciseId
-    // );
 
-  // TODO: Fetch only the most recent date for the exercise to display on the details page, and show rest of the history on seperate history page
     const exerciseHistoryForCurrentExercise = exerciseHistory
       .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -22,7 +19,10 @@ const ExerciseDetailScreen = ({route}) => {
       ? exerciseHistoryForCurrentExercise[0]
       : null;
 
-    console.log(mostRecentEntry)
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
     return (
         <ScrollView style={styles.container}>
           <ImageBackground source={{ uri: exercise.imageUrl }} style={styles.imageBackground}>
@@ -54,7 +54,9 @@ const ExerciseDetailScreen = ({route}) => {
                       <Paragraph>Reps: {set.reps}</Paragraph>
                     </View>
                   ))}
-                  <Button style={styles.button} icon="history" mode='contained-tonal' onPress={() => console.log("open modal")}>Show entire history</Button>
+                  <Button style={styles.button} icon="history" mode='contained-tonal' onPress={toggleModal}>
+                    Show entire history
+                  </Button>
                 </Card.Content>
               ) : (
                 <Card.Content>
@@ -62,7 +64,13 @@ const ExerciseDetailScreen = ({route}) => {
                 </Card.Content>
               )}
           </Card>
-
+          <Portal>
+            <ExerciseHistoryModal
+              visible={isModalVisible}
+              onClose={toggleModal}
+              exerciseHistory={exerciseHistoryForCurrentExercise}
+            />
+          </Portal>
         </ScrollView>
       );
     };
