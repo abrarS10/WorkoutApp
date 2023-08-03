@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Modal, Text, Button } from 'react-native-paper';
+import { Modal, Text, Button, Title } from 'react-native-paper';
 
 const ExerciseHistoryModal = ({ visible, onClose, exerciseHistory }) => {
   return (
     <Modal visible={visible} onDismiss={onClose} contentContainerStyle={styles.modalContainer}>
       <ScrollView>
+        <Title>History</Title>
         {exerciseHistory.map((historyEntry) => (
           <View key={historyEntry.historyId} style={styles.historyEntryContainer}>
             <Text style={styles.dateText}>{historyEntry.date}</Text>
@@ -18,7 +19,7 @@ const ExerciseHistoryModal = ({ visible, onClose, exerciseHistory }) => {
           </View>
         ))}
       </ScrollView>
-      <Button mode="contained" onPress={onClose} style={styles.closeButton}>
+      <Button mode="contained" testID='closeButton' onPress={onClose} style={styles.closeButton}>
         Close
       </Button>
     </Modal>

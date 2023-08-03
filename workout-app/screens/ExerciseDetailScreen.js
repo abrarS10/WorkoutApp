@@ -14,7 +14,7 @@ const ExerciseDetailScreen = ({route}) => {
       .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    //Get the most recent date for the current exercise
+      //Get the most recent date for the current exercise
     const mostRecentEntry = exerciseHistoryForCurrentExercise.length
       ? exerciseHistoryForCurrentExercise[0]
       : null;
@@ -60,7 +60,7 @@ const ExerciseDetailScreen = ({route}) => {
                 </Card.Content>
               ) : (
                 <Card.Content>
-                  <Subheading>This exercise has not been performed.</Subheading>
+                  <Subheading>There is no history for this exercise.</Subheading>
                 </Card.Content>
               )}
           </Card>
