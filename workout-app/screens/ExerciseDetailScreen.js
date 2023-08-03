@@ -1,11 +1,16 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
 import {Card, Title, Subheading, Paragraph} from 'react-native-paper'
-import ExerciseHistory from '../data/exerciseHistory';
+import exerciseHistory from '../data/exerciseHistory';
 
 
 const ExerciseDetailScreen = ({route}) => {
     const { exercise } = route.params;
+
+    const exerciseId = exercise.id;
+    const exerciseHistoryForCurrentExercise = exerciseHistory.filter(
+      (history) => history.exerciseId === exerciseId
+    );
 
     return (
         <ScrollView style={styles.container}>
@@ -21,6 +26,22 @@ const ExerciseDetailScreen = ({route}) => {
               <Paragraph style={styles.equipment}>Necessary Equipment: {exercise.equipment.join(', ')}</Paragraph>
               {exercise.notes && <Paragraph style={styles.notes}>Notes: {exercise.notes}</Paragraph>}
             </Card.Content>
+          </Card>
+          <Card style={styles.exerciseCard}>
+              <Card.Content>
+                <Title>Exercise History</Title>
+                  {exerciseHistoryForCurrentExercise.map((history) => (
+                    <View key={history.historyId} style={styles.historyItem}>
+                      <Subheading>Date: {history.date}</Subheading>
+                      {/* Render the setPlan data */}
+                      {history.setPlan.map((set, index) => (
+                        <Paragraph key={index}>
+                          Set {index + 1}: Weight: {set.weight}, Reps: {set.reps}
+                        </Paragraph>
+                      ))}
+                    </View>
+                  ))}
+              </Card.Content>
           </Card>
         </ScrollView>
       );
