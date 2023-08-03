@@ -22,31 +22,9 @@ const exerciseHistory = [
         ]
     },
     {
-        historyId: '2',
-        exerciseId: '2',
-        date: '2023-07-26',
-        setPlan: [
-            {
-                _id: "2355",
-                weight: '80',
-                reps: '5'
-            },
-            {
-                _id: '2356',
-                weight: '90',
-                reps: '5'
-            },
-            {
-                _id:'2357',
-                weight: '105',
-                reps: '3'
-            }
-        ]
-    },
-    {
         historyId: '3',
         exerciseId: '1',
-        date: '2023-09-25',
+        date: '2021-09-25',
         setPlan: [
             {
                 _id: "2345",

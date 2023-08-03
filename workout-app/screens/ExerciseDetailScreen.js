@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
-import {Card, Title, Subheading, Paragraph} from 'react-native-paper'
+import {Card, Title, Subheading, Paragraph, Button} from 'react-native-paper'
 import exerciseHistory from '../data/exerciseHistory';
 
 
@@ -8,20 +8,21 @@ const ExerciseDetailScreen = ({route}) => {
     const { exercise } = route.params;
 
     const exerciseId = exercise.id;
-    const exerciseHistoryForCurrentExercise = exerciseHistory.filter(
-      (history) => history.exerciseId === exerciseId
-    );
+    // const exerciseHistoryForCurrentExercise = exerciseHistory.filter(
+    //   (history) => history.exerciseId === exerciseId
+    // );
 
   // TODO: Fetch only the most recent date for the exercise to display on the details page, and show rest of the history on seperate history page
-  //   const exerciseHistoryForCurrentExercise = exerciseHistory
-  //     .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
-  //     .sort((a, b) => new Date(b.date) - new Date(a.date));
+    const exerciseHistoryForCurrentExercise = exerciseHistory
+      .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Get the most recent date for the current exercise
-  //   const mostRecentDate = exerciseHistoryForCurrentExercise.length
-  //     ? exerciseHistoryForCurrentExercise[0].date
-  //     : null;
+    //Get the most recent date for the current exercise
+    const mostRecentEntry = exerciseHistoryForCurrentExercise.length
+      ? exerciseHistoryForCurrentExercise[0]
+      : null;
 
+    console.log(mostRecentEntry)
     return (
         <ScrollView style={styles.container}>
           <ImageBackground source={{ uri: exercise.imageUrl }} style={styles.imageBackground}>
@@ -39,22 +40,29 @@ const ExerciseDetailScreen = ({route}) => {
               {exercise.notes && <Paragraph style={styles.notes}>Notes: {exercise.notes}</Paragraph>}
             </Card.Content>
           </Card>
+
           <Card style={styles.exerciseCard}>
-              <Card.Content>
-                <Title>Exercise History</Title>
-                  {exerciseHistoryForCurrentExercise.map((history) => (
-                    <View key={history.historyId} style={styles.historyItem}>
-                      <Subheading>Date: {history.date}</Subheading>
-                      {/* Render the setPlan data */}
-                      {history.setPlan.map((set, index) => (
-                        <Paragraph key={index}>
-                          Set {index + 1}: Weight: {set.weight}, Reps: {set.reps}
-                        </Paragraph>
-                      ))}
+              { mostRecentEntry ? (
+                <Card.Content>
+                  <Subheading>Most Recent Exercise Date:</Subheading>
+                  <Paragraph>{mostRecentEntry.date}</Paragraph>
+                  {/* Display set plan for the most recent entry */}
+                  <Subheading>Set Plan:</Subheading>
+                  {mostRecentEntry.setPlan.map((set) => (
+                    <View key={set._id}>
+                      <Paragraph>Weight: {set.weight}</Paragraph>
+                      <Paragraph>Reps: {set.reps}</Paragraph>
                     </View>
                   ))}
-              </Card.Content>
+                  <Button style={styles.button} icon="history" mode='contained-tonal' onPress={() => console.log("open modal")}>Show entire history</Button>
+                </Card.Content>
+              ) : (
+                <Card.Content>
+                  <Subheading>This exercise has not been performed.</Subheading>
+                </Card.Content>
+              )}
           </Card>
+
         </ScrollView>
       );
     };
@@ -96,5 +104,10 @@ const styles = StyleSheet.create({
     notes: {
       marginBottom: 16,
     },
+    button: {
+      marginTop: 16,
+      width: '100%',
+      alignItems: 'center'
+    }
 });
 export default ExerciseDetailScreen
