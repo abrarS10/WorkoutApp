@@ -1,13 +1,13 @@
 import { View, StyleSheet, Pressable } from 'react-native'
 import React, {useState} from 'react'
-import {Card, Avatar, Searchbar} from 'react-native-paper'
+import {Card, Avatar, Searchbar, Menu, Button} from 'react-native-paper'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 import ExerciseDetailScreen from './ExerciseDetailScreen'
-import exercises  from '../data/exercises';
+import exercises from '../data/exercises';
 
 const Stack = createNativeStackNavigator();
-
+const muscleGroups = ["All", "Chest", "Legs"];
 
 function ExcerciseScreen() {
 
@@ -28,15 +28,30 @@ function ExcerciseScreen() {
     function ExcerciseListContent() {
         const [searchQuery, setSearchQuery] = useState('');
         const [filteredExercises, setFilteredExercises] = useState(exercises);
+        const [menuVisible, setMenuVisible] = useState(false);
+        const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('All');
+
 
         const onChangeSearch = (query) => {
             setSearchQuery(query);
             const filtered = exercises.filter(
                 (exercise) =>
-                exercise.name.toLowerCase().includes(query.toLowerCase()) ||
-                exercise.primaryMuscle.toLowerCase().includes(query.toLowerCase())
+                exercise.name.toLowerCase().includes(query.toLowerCase())
             );
             setFilteredExercises(filtered);
+        };
+
+        const filterExercisesByMuscleGroup = (muscleGroup) => {
+            setSelectedMuscleGroup(muscleGroup);
+            if (muscleGroup === 'All') {
+              setFilteredExercises(exercises);
+            } else {
+              const filtered = exercises.filter(
+                (exercise) => exercise.primaryMuscle === muscleGroup
+              );
+              setFilteredExercises(filtered);
+            }
+            setMenuVisible(false);
         };
 
 
@@ -47,6 +62,24 @@ function ExcerciseScreen() {
                     onChangeText={onChangeSearch}
                     value={searchQuery}
                 />
+                <View style={styles.filterContainer}>
+                    <Menu
+                        visible={menuVisible}
+                        onDismiss={() => setMenuVisible(false)}
+                        anchor={
+                            <Button testID='filterButton' mode='contained' onPress={() => setMenuVisible(true)}>{selectedMuscleGroup}</Button>
+                        }
+                    >
+                        {muscleGroups.map((muscleGroup) => (
+                            <Menu.Item
+                            key={muscleGroup}
+                            testID={`menuOption_${muscleGroup}`}
+                            onPress={() => filterExercisesByMuscleGroup(muscleGroup)}
+                            title={muscleGroup}
+                            />
+                        ))}
+                    </Menu>
+                </View>
                 <View style={styles.exerciseListContainer}>
                     {filteredExercises.map((exercise) => (
                         <Pressable key={exercise.id} onPress={() => handleExercisePress(exercise)}>
@@ -84,6 +117,10 @@ const styles = StyleSheet.create({
     exerciseName: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    filterContainer: {
+        width: '30%',
+        marginTop: 16,
     }
 });
 

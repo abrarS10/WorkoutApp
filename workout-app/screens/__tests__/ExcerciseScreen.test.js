@@ -2,8 +2,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import '@testing-library/jest-dom/extend-expect';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ExcerciseScreen from '../ExcerciseScreen';
+import { PaperProvider } from 'react-native-paper';
 
 // Mock the 'useNavigation' hook
 const mockNavigation = {navigate:jest.fn()};
@@ -79,4 +81,27 @@ test('navigates to ExerciseDetailScreen when exercise is pressed', () => {
       gifUrl: 'www.abc.com',
     },
   });
+});
+
+test('should filter exercises by muscle group', () => {
+  const { getByText, getByTestId, queryByText } = render(
+    <PaperProvider>
+      <NavigationContainer>
+        <ExcerciseScreen />
+      </NavigationContainer>
+    </PaperProvider>
+  );
+  // Open the filter menu
+  const filterButton = getByTestId('filterButton')
+  fireEvent.press(filterButton);
+
+  // Select a muscle group from the menu
+  fireEvent.press(getByTestId('menuOption_Chest'));
+
+  // TODO: Check if the selected muscle group is displayed on the filter button
+  //expect(filterButton).toHaveTextContent('Chest');
+
+  // Check if exercises are correctly filtered by the selected muscle group
+  expect(getByText('Bench Press')).toBeTruthy();
+  expect(queryByText('Squat')).toBeNull();
 });
