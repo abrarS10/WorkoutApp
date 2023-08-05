@@ -34,10 +34,15 @@ function ExcerciseScreen() {
 
         const onChangeSearch = (query) => {
             setSearchQuery(query);
-            const filtered = exercises.filter(
-                (exercise) =>
-                exercise.name.toLowerCase().includes(query.toLowerCase())
-            );
+
+            const filtered = exercises.filter((exercise) => {
+                const matchesSearchQuery = exercise.name.toLowerCase().includes(query.toLowerCase());
+
+                // If "All" is selected or the exercise matches the selected muscle group, show it
+                const matchesMuscleGroup = selectedMuscleGroup === 'All' || exercise.primaryMuscle === selectedMuscleGroup;
+
+                return matchesSearchQuery && matchesMuscleGroup;
+            });
             setFilteredExercises(filtered);
         };
 
