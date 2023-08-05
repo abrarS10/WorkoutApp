@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-function Progress() {
+function WorkoutPlansScreen() {
   return (
     <View className="flex-1 justify-center items-center">
-      <Text>My Progress</Text>
+      <Text>My Workout Plans</Text>
     </View>
   )
 }
 
-export default Progress
+export default WorkoutPlansScreen

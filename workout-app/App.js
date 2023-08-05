@@ -6,9 +6,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from './screens/HomeScreen';
 import ExcerciseScreen from './screens/ExcerciseScreen';
-import FoodScreen from './screens/FoodScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
-import SearchScreen from './screens/SearchScreen';
+import WorkoutPlansScreen from './screens/WorkoutPlansScreen';
 import { PaperProvider } from 'react-native-paper';
 
 const Stack = createNativeStackNavigator();
@@ -31,8 +30,8 @@ export default function App() {
             }}
           />
           <Tab.Screen
-            name='Search'
-            component={SearchScreen}
+            name='Workouts'
+            component={WorkoutPlansScreen}
             options={{
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="store-search" color={color} size={26}/>
@@ -40,20 +39,11 @@ export default function App() {
             }}
           />
           <Tab.Screen
-            name='Workouts'
+            name='Exercises'
             component={ExcerciseScreen}
             options={{
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="weight" color={color} size={26}/>
-              ),
-            }}
-          />
-          <Tab.Screen
-            name='Food'
-            component={FoodScreen}
-            options={{
-              tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons name="food" color={color} size={26}/>
               ),
             }}
           />
