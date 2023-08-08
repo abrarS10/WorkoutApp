@@ -13,7 +13,7 @@ const workoutPlans = [
                         id: 1,
                         setPlan: [
                             {
-                                reps: 8,
+                                reps: 5,
                                 weight: 30,
                                 rest: 120
                             },

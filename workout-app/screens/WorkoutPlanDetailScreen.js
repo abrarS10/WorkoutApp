@@ -56,9 +56,12 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
     const getRepsText = (setPlan) => {
         const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
+
+        if ( repsArray.length <= 0 ) { return ``}
+
         const minReps = Math.min(...repsArray);
         const maxReps = Math.max(...repsArray);
-        if (minReps == 0 && maxReps == 0) { return ``}
+
         if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
         return `x ${minReps}-${maxReps} reps`;
     };
