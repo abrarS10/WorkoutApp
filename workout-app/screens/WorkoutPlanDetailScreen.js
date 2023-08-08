@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 import { Card } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
+import exercises from '../data/exercises';
 
 const WorkoutPlanDetailScreen = ({route}) => {
 
@@ -17,8 +18,8 @@ const WorkoutPlanDetailScreen = ({route}) => {
                     {day.exercises.length === 0 ? (
                         <Text>No exercises for this day.</Text>
                     ) : (
-                        day.exercises.map((exercise, index) => (
-                        <ExerciseCard key={index} exercise={exercise} />
+                        day.exercises.map((exerciseData, index) => (
+                        <ExerciseCard key={index} exerciseData={exerciseData} />
                         ))
                     )}
                 </Card>
@@ -26,11 +27,18 @@ const WorkoutPlanDetailScreen = ({route}) => {
         );
     };
 
-    const ExerciseCard = ({ exercise }) => (
-        <Card style={styles.exerciseCard}>
-            <Card.Title title={exercise.name} />
-        </Card>
-      );
+    const ExerciseCard = ({ exerciseData }) => {
+
+        const exerciseId = exerciseData.id
+        // find relevant exercise in exercises object using exercise id
+        const exercise = exercises.find((exercise) => exercise.id === exerciseId);
+
+        return (
+            <Card style={styles.exerciseCard}>
+                <Card.Title title={exercise.name} />
+            </Card>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
       },
     activeDot: {
-        backgroundColor: '#FF9800',
+        backgroundColor: '#00C68D',
         width: 12,
         height: 12,
         borderRadius: 6,

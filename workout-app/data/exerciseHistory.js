@@ -1,7 +1,7 @@
 const exerciseHistory = [
     {
         historyId: '1',
-        exerciseId: '1',
+        exerciseId: 1,
         date: '2023-07-25',
         setPlan: [
             {
@@ -23,7 +23,7 @@ const exerciseHistory = [
     },
     {
         historyId: '3',
-        exerciseId: '1',
+        exerciseId: 1,
         date: '2021-09-25',
         setPlan: [
             {
@@ -45,7 +45,7 @@ const exerciseHistory = [
     },
     {
         historyId: '4',
-        exerciseId: '1',
+        exerciseId: 1,
         date: '2022-09-29',
         setPlan: [
             {
@@ -67,7 +67,7 @@ const exerciseHistory = [
     },
     {
         historyId: '5',
-        exerciseId: '1',
+        exerciseId: 1,
         date: '2023-09-29',
         setPlan: [
             {
@@ -89,7 +89,7 @@ const exerciseHistory = [
     },
     {
         historyId: '6',
-        exerciseId: '1',
+        exerciseId: 1,
         date: '2023-11-29',
         setPlan: [
             {

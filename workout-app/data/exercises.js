@@ -1,6 +1,6 @@
 const exercises = [
     {
-        id: '1',
+        id: 1,
         name: 'Bench Press',
         primaryMuscle: 'Chest',
         additionalMuscles: ['Shoulders', 'Triceps'],
@@ -9,7 +9,7 @@ const exercises = [
         gifUrl: 'www.abc.com'
     },
     {
-        id: '2',
+        id: 2,
         name: 'Squat',
         primaryMuscle: 'Legs',
         additionalMuscles: ['Glutes'],
@@ -18,7 +18,7 @@ const exercises = [
         gifUrl: 'www.abc.com'
     },
     {
-        id: '3',
+        id: 3,
         name: 'DB Bench Press',
         primaryMuscle: 'Chest',
         additionalMuscles: ['Shoulders', 'Triceps'],

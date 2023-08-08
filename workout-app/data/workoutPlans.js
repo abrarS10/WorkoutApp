@@ -11,11 +11,9 @@ const workoutPlans = [
                 exercises: [
                     {
                         id: 1,
-                        name: 'Bench Press'
                     },
                     {
                         id: 3,
-                        name: 'DB Bench Press'
                     }
                 ]
 
