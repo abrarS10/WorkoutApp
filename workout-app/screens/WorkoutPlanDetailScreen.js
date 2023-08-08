@@ -36,9 +36,32 @@ const WorkoutPlanDetailScreen = ({route}) => {
         return (
             <Card style={styles.exerciseCard}>
                 <Card.Title title={exercise.name} />
+                <Card.Content>
+                    {exerciseData.setPlan && exerciseData.setPlan.length > 0 ? (
+                        <Text>
+                            {getSetsText(exerciseData.setPlan)} {getRepsText(exerciseData.setPlan)}
+                        </Text>
+                    ) : (
+                        <Text>No set plan created</Text>
+                    )}
+                </Card.Content>
             </Card>
         );
     }
+
+    function getSetsText(setPlan) {
+        const numSets = setPlan.length;
+        return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
+    }
+
+    const getRepsText = (setPlan) => {
+        const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
+        const minReps = Math.min(...repsArray);
+        const maxReps = Math.max(...repsArray);
+        if (minReps == 0 && maxReps == 0) { return ``}
+        if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
+        return `x ${minReps}-${maxReps} reps`;
+    };
 
     return (
         <View style={styles.container}>
