@@ -1,90 +1,116 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
-import { Card } from 'react-native-paper';
+import { Button, Card } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
+import ExcerciseScreen from './ExcerciseScreen';
+
+const Stack = createNativeStackNavigator();
+
 
 const WorkoutPlanDetailScreen = ({route}) => {
+
+    const navigation = useNavigation();
 
     const { workoutPlan } = route.params;
 
     const workoutDays = workoutPlan.workoutDays;
 
-    const DayCard = ({day}) => {
+    const handleNewExercisePress = (exercise) => {
+        navigation.navigate('ExerciseScreen', {showCheckboxes: true});
+    };
+
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name="WorkoutPlanContent" component={WorkoutPlanContent} options={{ headerShown: false }} />
+            <Stack.Screen name="ExerciseScreen" component={ExcerciseScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    )
+
+    function WorkoutPlanContent(){
+
+        const DayCard = ({day}) => {
+            return (
+                <View style={styles.dayCard}>
+                    <Card style={styles.cardContent}>
+                        <Card.Title title={day.name} />
+                        {day.exercises.length === 0 ? (
+                            <Text>No exercises for this day.</Text>
+                        ) : (
+                            day.exercises.map((exerciseData, index) => (
+                            <ExerciseCard key={index} exerciseData={exerciseData} />
+                            ))
+                        )}
+                        <Button icon="plus"  onPress={() => handleNewExercisePress()}>
+                            Add new exercise
+                        </Button>
+                    </Card>
+                </View>
+            );
+        };
+
+        const ExerciseCard = ({ exerciseData }) => {
+
+            const exerciseId = exerciseData.id
+            // find relevant exercise in exercises object using exercise id
+            const exercise = exercises.find((exercise) => exercise.id === exerciseId);
+
+            return (
+                <Card style={styles.exerciseCard}>
+                    <Card.Title title={exercise.name} />
+                    <Card.Content>
+                        {exerciseData.setPlan && exerciseData.setPlan.length > 0 ? (
+                            <Text>
+                                {getSetsText(exerciseData.setPlan)} {getRepsText(exerciseData.setPlan)}
+                            </Text>
+                        ) : (
+                            <Text>No set plan created</Text>
+                        )}
+                    </Card.Content>
+                </Card>
+            );
+        }
+
+        function getSetsText(setPlan) {
+            const numSets = setPlan.length;
+            return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
+        }
+
+        const getRepsText = (setPlan) => {
+            const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
+
+            if ( repsArray.length <= 0 ) { return ``}
+
+            const minReps = Math.min(...repsArray);
+            const maxReps = Math.max(...repsArray);
+
+            if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
+            return `x ${minReps}-${maxReps} reps`;
+        };
+
         return (
-            <View style={styles.dayCard}>
-                <Card style={styles.cardContent}>
-                    <Card.Title title={day.name} />
-                    {day.exercises.length === 0 ? (
-                        <Text>No exercises for this day.</Text>
+            <View style={styles.container}>
+                <Text style={styles.screenTitle}>{workoutPlan.name}</Text>
+                <Swiper
+                    showButtons={false}
+                    loop={false}
+                    dotStyle={styles.dot}
+                    activeDotStyle={styles.activeDot}
+                >
+                    {workoutDays.length === 0 ? (
+                        <Text>No workout plans created.</Text>
                     ) : (
-                        day.exercises.map((exerciseData, index) => (
-                        <ExerciseCard key={index} exerciseData={exerciseData} />
+                        workoutDays.map((day, index) => (
+                            <DayCard key={index} day={day} />
                         ))
                     )}
-                </Card>
+                </Swiper>
             </View>
-        );
-    };
-
-    const ExerciseCard = ({ exerciseData }) => {
-
-        const exerciseId = exerciseData.id
-        // find relevant exercise in exercises object using exercise id
-        const exercise = exercises.find((exercise) => exercise.id === exerciseId);
-
-        return (
-            <Card style={styles.exerciseCard}>
-                <Card.Title title={exercise.name} />
-                <Card.Content>
-                    {exerciseData.setPlan && exerciseData.setPlan.length > 0 ? (
-                        <Text>
-                            {getSetsText(exerciseData.setPlan)} {getRepsText(exerciseData.setPlan)}
-                        </Text>
-                    ) : (
-                        <Text>No set plan created</Text>
-                    )}
-                </Card.Content>
-            </Card>
-        );
+        )
     }
 
-    function getSetsText(setPlan) {
-        const numSets = setPlan.length;
-        return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
-    }
-
-    const getRepsText = (setPlan) => {
-        const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
-
-        if ( repsArray.length <= 0 ) { return ``}
-
-        const minReps = Math.min(...repsArray);
-        const maxReps = Math.max(...repsArray);
-
-        if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
-        return `x ${minReps}-${maxReps} reps`;
-    };
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.screenTitle}>{workoutPlan.name}</Text>
-            <Swiper
-                showButtons={false}
-                loop={false}
-                dotStyle={styles.dot}
-                activeDotStyle={styles.activeDot}
-            >
-                {workoutDays.length === 0 ? (
-                    <Text>No workout plans created.</Text>
-                ) : (
-                    workoutDays.map((day, index) => (
-                        <DayCard key={index} day={day} />
-                    ))
-                )}
-            </Swiper>
-        </View>
-    )
 }
 
 const styles = StyleSheet.create({

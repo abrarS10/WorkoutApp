@@ -1,5 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from './screens/HomeScreen';
@@ -9,8 +8,8 @@ import WorkoutPlansScreen from './screens/WorkoutPlansScreen';
 import { PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import store from './store';
+import ExerciseStackScreen from './navigation/ExerciseStackScreen';
 
-const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 
@@ -40,12 +39,13 @@ export default function App() {
             />
             <Tab.Screen
               name='Exercises'
-              component={ExcerciseScreen}
+              component={ExerciseStackScreen}
               options={{
                 tabBarIcon: ({color}) => (
                   <MaterialCommunityIcons name="weight" color={color} size={26}/>
                 ),
               }}
+              initialParams={{showCheckboxes: false}}
             />
             <Tab.Screen
               name='Me'
