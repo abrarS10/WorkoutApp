@@ -112,7 +112,7 @@ const WorkoutPlansScreen = () => {
 
 const styles = StyleSheet.create({
   workoutPlanListContainer: {
-    paddingTop: 50,
+    paddingTop: 25,
     paddingHorizontal: 16,
   },
   selectedWorkoutTitle: {
