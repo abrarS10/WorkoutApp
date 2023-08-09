@@ -9,9 +9,9 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
     const navigation = useNavigation();
 
-    const { workoutPlan } = route.params;
+    const workoutPlan = route.params?.workoutPlan;
 
-    const workoutDays = workoutPlan.workoutDays;
+    const workoutDays = workoutPlan?.workoutDays;
 
     const handleNewExercisePress = (exercise) => {
         navigation.navigate('ExcerciseScreen', {showCheckboxes: true});

@@ -49,49 +49,6 @@ const WorkoutPlansScreen = () => {
     </View>
   );
 
-      // const renderWorkoutPlan = ({ item }) => {
-      //   const isSelected = item.id === selectedWorkoutPlan;
-
-      //   return (
-      //     <TouchableOpacity
-      //       style={[styles.planCard, isSelected && styles.selectedPlanCard]}
-      //       onPress={() => navigation.navigate('PlanDetails', { planId: item.id })}
-      //     >
-      //       <Text style={styles.planName}>{item.name}</Text>
-      //       <Text style={styles.planDescription}>{item.description}</Text>
-      //     </TouchableOpacity>
-      //   );
-      // };
-
-      // if (workoutPlans.length === 0) {
-      //   return (
-      //     <View style={styles.container}>
-      //       <Text>No workout plans created yet.</Text>
-      //       <TouchableOpacity
-      //         style={styles.createButton}
-      //         onPress={() => navigation.navigate('CreatePlan')}
-      //       >
-      //         <Text style={styles.createButtonText}>Create New Plan</Text>
-      //       </TouchableOpacity>
-      //     </View>
-      //   );
-      // }
-
-      // return (
-      //   <View style={styles.container}>
-      //     <FlatList
-      //       data={workoutPlans}
-      //       keyExtractor={item => item.id}
-      //       renderItem={renderWorkoutPlan}
-      //     />
-      //     <TouchableOpacity
-      //       style={styles.createButton}
-      //       onPress={() => navigation.navigate('CreatePlan')}
-      //     >
-      //       <MaterialCommunityIcons name="plus" size={24} color="white" />
-      //     </TouchableOpacity>
-      //   </View>
-      // );
 };
 
 

@@ -8,7 +8,7 @@ const muscleGroups = ["All", "Chest", "Legs"];
 
 function ExcerciseScreen({route}) {
 
-    const { showCheckboxes } = route.params;
+    const showCheckboxes = route.params?.showCheckboxes;
     const navigation = useNavigation();
 
     const handleExercisePress = (exercise) => {
@@ -19,6 +19,8 @@ function ExcerciseScreen({route}) {
     const [filteredExercises, setFilteredExercises] = useState(exercises);
     const [menuVisible, setMenuVisible] = useState(false);
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('All');
+    const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
+
 
 
     const onChangeSearch = (query) => {
@@ -46,6 +48,22 @@ function ExcerciseScreen({route}) {
           setFilteredExercises(filtered);
         }
         setMenuVisible(false);
+    };
+
+    const toggleExerciseSelection = (exercise) => {
+        if (selectedExerciseIds.includes(exercise)) {
+            setSelectedExerciseIds(selectedExerciseIds.filter(item => item !== exercise));
+        } else {
+            setSelectedExerciseIds([...selectedExerciseIds, exercise]);
+        }
+    };
+
+    const handleAddExercises = () => {
+        // Pass selectedExercises back to WorkoutPlanDetailScreen
+
+        console.log(selectedExerciseIds)
+
+
     };
 
 
@@ -83,14 +101,29 @@ function ExcerciseScreen({route}) {
                                 titleStyle={styles.exerciseName}
                                 subtitle={exercise.primaryMuscle}
                                 left={(props) => <Avatar.Image {...props} icon="folder" />}
+                                right={() => showCheckboxes && (
+                                    <Checkbox
+                                        status={selectedExerciseIds.includes(exercise.id) ? 'checked' : 'unchecked'}
+                                        onPress={() => toggleExerciseSelection(exercise.id)}
+                                    />
+                                )}
                             />
-                            {showCheckboxes && (
-                                <Checkbox/>
-                            )}
+
                         </Card>
                     </Pressable>
                 ))}
             </View>
+            {showCheckboxes && (
+                <View style={styles.addButtonContainer}>
+                    <Button
+                        mode='contained'
+                        onPress={handleAddExercises}
+                        disabled={selectedExerciseIds.length === 0}
+                    >
+                        Add Selected Exercises
+                    </Button>
+                </View>
+            )}
         </View>
     )
 }
@@ -118,7 +151,14 @@ const styles = StyleSheet.create({
     filterContainer: {
         width: '30%',
         marginTop: 16,
-    }
+    },
+    addButtonContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: 10,
+    },
 });
 
 export default ExcerciseScreen
