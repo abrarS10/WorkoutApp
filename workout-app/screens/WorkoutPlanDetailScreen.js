@@ -3,12 +3,7 @@ import React from 'react'
 import { Button, Card } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
-import ExcerciseScreen from './ExcerciseScreen';
-
-const Stack = createNativeStackNavigator();
-
 
 const WorkoutPlanDetailScreen = ({route}) => {
 

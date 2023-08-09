@@ -1,12 +1,9 @@
 import { View, StyleSheet, Pressable } from 'react-native'
 import React, {useState} from 'react'
 import {Card, Avatar, Searchbar, Menu, Button, Checkbox} from 'react-native-paper'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
-import ExerciseDetailScreen from './ExerciseDetailScreen'
 import exercises from '../data/exercises';
 
-const Stack = createNativeStackNavigator();
 const muscleGroups = ["All", "Chest", "Legs"];
 
 function ExcerciseScreen({route}) {

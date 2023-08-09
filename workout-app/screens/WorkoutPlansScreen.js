@@ -2,13 +2,8 @@ import { View, StyleSheet, Pressable, Text } from 'react-native'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import workoutPlans from '../data/workoutPlans';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
-import WorkoutPlanDetailScreen from './WorkoutPlanDetailScreen';
 import { Card } from 'react-native-paper'
-
-
-const Stack = createNativeStackNavigator();
 
 const WorkoutPlansScreen = () => {
 
