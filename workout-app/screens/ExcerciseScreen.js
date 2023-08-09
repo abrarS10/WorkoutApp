@@ -18,13 +18,6 @@ function ExcerciseScreen({route}) {
         navigation.navigate('ExerciseDetail', {exercise});
     };
 
-    // return(
-    //     <Stack.Navigator>
-    //         <Stack.Screen name="ExcerciseScreen" component={ExcerciseListContent} options={{ headerShown: false }}/>
-    //         <Stack.Screen name="ExerciseDetail" component={ExerciseDetailScreen} options={{ headerShown: false }} />
-    //     </Stack.Navigator>
-    // )
-
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredExercises, setFilteredExercises] = useState(exercises);
     const [menuVisible, setMenuVisible] = useState(false);

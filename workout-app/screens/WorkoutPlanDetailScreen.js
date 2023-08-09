@@ -22,14 +22,6 @@ const WorkoutPlanDetailScreen = ({route}) => {
         navigation.navigate('ExcerciseScreen', {showCheckboxes: true});
     };
 
-    // return(
-    //     <Stack.Navigator>
-    //         <Stack.Screen name="WorkoutPlanContent" component={WorkoutPlanContent} options={{ headerShown: false }} />
-    //         <Stack.Screen name="ExerciseScreen" component={ExcerciseScreen} options={{ headerShown: false }} />
-    //     </Stack.Navigator>
-    // )
-
-
     const DayCard = ({day}) => {
         return (
             <View style={styles.dayCard}>

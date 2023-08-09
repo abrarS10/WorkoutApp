@@ -18,14 +18,6 @@ const WorkoutPlansScreen = () => {
     navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
 };
 
-  // return(
-  //   <Stack.Navigator>
-  //       <Stack.Screen name="WorkoutPlansScreen" component={WorkoutPlanContent} options={{ headerShown: true }} />
-  //       <Stack.Screen name="WorkoutPlanDetail" component={WorkoutPlanDetailScreen} options={{ headerShown: false }} />
-  //   </Stack.Navigator>
-  // )
-
-
   const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
   const isPremiumMember = useSelector(state => state.user.premiumMember);
   // used to update state
