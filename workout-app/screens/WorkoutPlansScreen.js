@@ -15,53 +15,52 @@ const WorkoutPlansScreen = () => {
   const navigation = useNavigation();
 
   const handlePlanPress = (workoutPlan) => {
-    navigation.navigate('WorkoutPlanDetail', {workoutPlan});
+    navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
 };
 
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="WorkoutPlansScreen" component={WorkoutPlanContent} options={{ headerShown: true }} />
-        <Stack.Screen name="WorkoutPlanDetail" component={WorkoutPlanDetailScreen} options={{ headerShown: false }} />
-    </Stack.Navigator>
-  )
+  // return(
+  //   <Stack.Navigator>
+  //       <Stack.Screen name="WorkoutPlansScreen" component={WorkoutPlanContent} options={{ headerShown: true }} />
+  //       <Stack.Screen name="WorkoutPlanDetail" component={WorkoutPlanDetailScreen} options={{ headerShown: false }} />
+  //   </Stack.Navigator>
+  // )
 
-  function WorkoutPlanContent(){
 
-      const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
-      const isPremiumMember = useSelector(state => state.user.premiumMember);
-      // used to update state
-      const dispatch = useDispatch();
+  const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
+  const isPremiumMember = useSelector(state => state.user.premiumMember);
+  // used to update state
+  const dispatch = useDispatch();
 
-      const selectedWorkoutPlan = workoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
-      const otherWorkoutPlans = workoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
+  const selectedWorkoutPlan = workoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
+  const otherWorkoutPlans = workoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
 
-    return (
-      <View style={styles.workoutPlanListContainer}>
-        {workoutPlans.length === 0 ? (
-          <Text>No workout plans created</Text>
-        ) : (
-          <>
-            {selectedWorkoutPlan && (
-              <View>
-                <Text style={styles.selectedWorkoutTitle}>Selected Plan:</Text>
-                <Pressable key={selectedWorkoutPlan.id} onPress={() => handlePlanPress(selectedWorkoutPlan)}>
-                  <Card mode="outlined" style={styles.selectedPlanCard}>
-                    <Card.Title title={selectedWorkoutPlan.name} subtitle={selectedWorkoutPlan.description} />
-                  </Card>
-                </Pressable>
-              </View>
-            )}
-            {otherWorkoutPlans.map((workout) => (
-              <Pressable key={workout.id} onPress={() => handlePlanPress(workout)}>
-                <Card mode="elevated" style={styles.planCard}>
-                  <Card.Title title={workout.name} subtitle={workout.description} />
+  return (
+    <View style={styles.workoutPlanListContainer}>
+      {workoutPlans.length === 0 ? (
+        <Text>No workout plans created</Text>
+      ) : (
+        <>
+          {selectedWorkoutPlan && (
+            <View>
+              <Text style={styles.selectedWorkoutTitle}>Selected Plan:</Text>
+              <Pressable key={selectedWorkoutPlan.id} onPress={() => handlePlanPress(selectedWorkoutPlan)}>
+                <Card mode="outlined" style={styles.selectedPlanCard}>
+                  <Card.Title title={selectedWorkoutPlan.name} subtitle={selectedWorkoutPlan.description} />
                 </Card>
               </Pressable>
-            ))}
-          </>
-        )}
-      </View>
-    );
+            </View>
+          )}
+          {otherWorkoutPlans.map((workout) => (
+            <Pressable key={workout.id} onPress={() => handlePlanPress(workout)}>
+              <Card mode="elevated" style={styles.planCard}>
+                <Card.Title title={workout.name} subtitle={workout.description} />
+              </Card>
+            </Pressable>
+          ))}
+        </>
+      )}
+    </View>
+  );
 
       // const renderWorkoutPlan = ({ item }) => {
       //   const isSelected = item.id === selectedWorkoutPlan;
@@ -106,8 +105,8 @@ const WorkoutPlansScreen = () => {
       //     </TouchableOpacity>
       //   </View>
       // );
-  };
-}
+};
+
 
 
 const styles = StyleSheet.create({

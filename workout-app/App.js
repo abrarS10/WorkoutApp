@@ -8,7 +8,8 @@ import WorkoutPlansScreen from './screens/WorkoutPlansScreen';
 import { PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import store from './store';
-import ExerciseStackScreen from './navigation/ExerciseStackScreen';
+import ExerciseScreenStack from './navigation/ExerciseScreenStack';
+import WorkoutPlanScreenStack from './navigation/WorkoutPlanScreenStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -30,7 +31,7 @@ export default function App() {
             />
             <Tab.Screen
               name='Workouts'
-              component={WorkoutPlansScreen}
+              component={WorkoutPlanScreenStack}
               options={{
                 tabBarIcon: ({color}) => (
                   <MaterialCommunityIcons name="store-search" color={color} size={26}/>
@@ -39,7 +40,7 @@ export default function App() {
             />
             <Tab.Screen
               name='Exercises'
-              component={ExerciseStackScreen}
+              component={ExerciseScreenStack}
               options={{
                 tabBarIcon: ({color}) => (
                   <MaterialCommunityIcons name="weight" color={color} size={26}/>

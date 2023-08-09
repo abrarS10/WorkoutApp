@@ -5,7 +5,7 @@ import ExcerciseScreen from '../screens/ExcerciseScreen';
 
 const ExerciseStack = createNativeStackNavigator();
 
-function ExerciseStackScreen() {
+function ExerciseScreenStack() {
     return (
         <ExerciseStack.Navigator>
             <ExerciseStack.Screen
@@ -23,4 +23,4 @@ function ExerciseStackScreen() {
     );
 }
 
-export default ExerciseStackScreen;
+export default ExerciseScreenStack;
