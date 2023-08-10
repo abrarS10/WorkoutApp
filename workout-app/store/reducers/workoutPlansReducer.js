@@ -27,7 +27,6 @@ const workoutPlansSlice = createSlice({
             const { planIndex, dayIndex, selectedExerciseIds } = action.payload;
             const dayExercises = state.plans[planIndex].workoutDays[dayIndex].exercises;
 
-            console.log(dayExercises)
             dayExercises.push(...selectedExerciseIds.map((id) => ({ id, setPlan: [] })));
         },
     }

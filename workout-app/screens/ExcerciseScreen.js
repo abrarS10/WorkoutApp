@@ -27,7 +27,6 @@ function ExcerciseScreen({route}) {
     const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
     const dayToBeEdited = useSelector(state => state.workoutPlans.dayToBeEdited)
 
-    //console.log(planToBeEdited, dayToBeEdited)
 
     if (showCheckboxes){
         planIndex = workoutPlans.findIndex(plan => plan.id === planToBeEdited);
@@ -87,36 +86,9 @@ function ExcerciseScreen({route}) {
     const handleAddExercises = () => {
         // TODO: Pass selectedExercises back to WorkoutPlanDetailScreen
 
-        //console.log(selectedExerciseIds)
-        //console.log(workoutPlans[planIndex].workoutDays[dayIndex].exercises)
-        //dayExercises.push(...selectedExerciseIds)
-
         dispatch(addSelectedExercisesToDay({planIndex, dayIndex, selectedExerciseIds}));
         navigation.goBack();
 
-        // const updatedWorkoutPlans = workoutPlans.map((plan) => {
-        //     if (plan.id === planToBeEdited) {
-        //       const updatedWorkoutDays = plan.workoutDays.map((day) => {
-        //         if (day.id === dayToBeEdited) {
-        //           return {
-        //             ...day,
-        //             exercises: [...day.exercises, ...selectedExerciseIds],
-        //           };
-        //         }
-        //         return day;
-        //       });
-
-        //       return {
-        //         ...plan,
-        //         workoutDays: updatedWorkoutDays,
-        //       };
-        //     }
-        //     return plan;
-        // });
-
-        // dispatch(updateWorkoutPlans(updatedWorkoutPlans));
-
-        // console.log(workoutPlans)
     };
 
 
