@@ -4,16 +4,20 @@ import { Button, Card } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux';
+import { setDayToBeEdited } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlanDetailScreen = ({route}) => {
 
     const navigation = useNavigation();
-
+    const dispatch = useDispatch();
     const workoutPlan = route.params?.workoutPlan;
-
     const workoutDays = workoutPlan?.workoutDays;
+    const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
 
-    const handleNewExercisePress = (exercise) => {
+
+    const handleNewExercisePress = (day) => {
+        dispatch(setDayToBeEdited(day))
         navigation.navigate('ExcerciseScreen', {showCheckboxes: true});
     };
 
@@ -29,7 +33,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
                         <ExerciseCard key={index} exerciseData={exerciseData} />
                         ))
                     )}
-                    <Button icon="plus"  onPress={() => handleNewExercisePress()}>
+                    <Button icon="plus"  onPress={() => handleNewExercisePress(day.id)}>
                         Add new exercise
                     </Button>
                 </Card>

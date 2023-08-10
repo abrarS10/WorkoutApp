@@ -4,22 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import workoutPlans from '../data/workoutPlans';
 import { useNavigation } from '@react-navigation/native'
 import { Card } from 'react-native-paper'
+import { setPlanToBeEdited } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlansScreen = () => {
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handlePlanPress = (workoutPlan) => {
+    dispatch(setPlanToBeEdited(workoutPlan.id))
     navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
 };
 
   const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
   const isPremiumMember = useSelector(state => state.user.premiumMember);
   // used to update state
-  const dispatch = useDispatch();
 
   const selectedWorkoutPlan = workoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
   const otherWorkoutPlans = workoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
+
+  //TODO: initialize workoutPlans in redux when app launches
 
   return (
     <View style={styles.workoutPlanListContainer}>

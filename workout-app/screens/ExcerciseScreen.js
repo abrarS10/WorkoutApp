@@ -3,6 +3,9 @@ import React, {useState} from 'react'
 import {Card, Avatar, Searchbar, Menu, Button, Checkbox} from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import exercises from '../data/exercises';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 const muscleGroups = ["All", "Chest", "Legs"];
 
@@ -10,6 +13,14 @@ function ExcerciseScreen({route}) {
 
     const showCheckboxes = route.params?.showCheckboxes;
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
+    const dayToBeEdited = useSelector(state => state.workoutPlans.dayToBeEdited)
+
+    if (showCheckboxes) {
+        console.log(planToBeEdited, dayToBeEdited)
+    }
 
     const handleExercisePress = (exercise) => {
         navigation.navigate('ExerciseDetail', {exercise});
@@ -59,7 +70,7 @@ function ExcerciseScreen({route}) {
     };
 
     const handleAddExercises = () => {
-        // Pass selectedExercises back to WorkoutPlanDetailScreen
+        // TODO: Pass selectedExercises back to WorkoutPlanDetailScreen
 
         console.log(selectedExerciseIds)
 
