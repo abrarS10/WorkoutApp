@@ -1,29 +1,33 @@
 import { View, StyleSheet, Pressable, Text } from 'react-native'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import workoutPlans from '../data/workoutPlans';
 import { useNavigation } from '@react-navigation/native'
 import { Card } from 'react-native-paper'
 import { setPlanToBeEdited } from '../store/reducers/workoutPlansReducer';
+import { setDayToBeEdited } from '../store/reducers/workoutPlansReducer';
+import workoutPlans from '../data/workoutPlans';
+import { setWorkoutPlans } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlansScreen = () => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const handlePlanPress = (workoutPlan) => {
-    dispatch(setPlanToBeEdited(workoutPlan.id))
-    navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
-};
+  // TODO: initialize workoutPlans in redux on app start, not here
+  dispatch(setWorkoutPlans(workoutPlans))
 
+  // used to update state
+  const savedWorkoutPlans = useSelector(state => state.workoutPlans.plans);
   const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
   const isPremiumMember = useSelector(state => state.user.premiumMember);
-  // used to update state
 
-  const selectedWorkoutPlan = workoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
-  const otherWorkoutPlans = workoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
+  const selectedWorkoutPlan = savedWorkoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
+  const otherWorkoutPlans = savedWorkoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
 
-  //TODO: initialize workoutPlans in redux when app launches
+  const handlePlanPress = (workoutPlan) => {
+    dispatch(setDayToBeEdited(workoutPlan.id))
+    navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
+  };
 
   return (
     <View style={styles.workoutPlanListContainer}>

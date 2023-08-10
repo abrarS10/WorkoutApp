@@ -11,9 +11,12 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+    //const workoutPlan = useSelector(state => state.workoutPlans.workoutPlans)
+
     const workoutPlan = route.params?.workoutPlan;
     const workoutDays = workoutPlan?.workoutDays;
-    const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
+
 
 
     const handleNewExercisePress = (day) => {

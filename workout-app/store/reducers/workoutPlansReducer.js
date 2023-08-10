@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    workoutPlans: [],
+    plans: [],
     planToBeEdited: null,
     dayToBeEdited: null,
 }
@@ -11,7 +11,10 @@ const workoutPlansSlice = createSlice({
     initialState,
     reducers: {
         setWorkoutPlans: (state, action) => {
-            state.workoutPlans = action.payload;
+            state.plans = action.payload;
+        },
+        updateWorkoutPlans: (state, action) => {
+            return action.payload
         },
         setPlanToBeEdited: (state, action) => {
             state.planToBeEdited = action.payload;
@@ -26,6 +29,7 @@ export const {
     setWorkoutPlans,
     setPlanToBeEdited,
     setDayToBeEdited,
+    updateWorkoutPlans,
 } = workoutPlansSlice.actions;
 
 export default workoutPlansSlice.reducer;

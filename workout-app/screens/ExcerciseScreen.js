@@ -4,6 +4,7 @@ import {Card, Avatar, Searchbar, Menu, Button, Checkbox} from 'react-native-pape
 import { useNavigation } from '@react-navigation/native'
 import exercises from '../data/exercises';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateWorkoutPlans } from '../store/reducers/workoutPlansReducer';
 
 
 
@@ -15,12 +16,19 @@ function ExcerciseScreen({route}) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
+    var planIndex = null
+    var dayIndex = null
+
+    const workoutPlans = useSelector(state => state.workoutPlans.workoutPlans)
+
+
+
     const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
     const dayToBeEdited = useSelector(state => state.workoutPlans.dayToBeEdited)
 
-    if (showCheckboxes) {
-        console.log(planToBeEdited, dayToBeEdited)
-    }
+        // planIndex = storedWorkoutPlans.findIndex(plan => plan.id === planToBeEdited);
+        // dayIndex = storedWorkoutPlans[planIndex].workoutDays.findIndex(day => day.id === dayToBeEdited);
+
 
     const handleExercisePress = (exercise) => {
         navigation.navigate('ExerciseDetail', {exercise});
@@ -72,9 +80,33 @@ function ExcerciseScreen({route}) {
     const handleAddExercises = () => {
         // TODO: Pass selectedExercises back to WorkoutPlanDetailScreen
 
-        console.log(selectedExerciseIds)
+        //console.log(selectedExerciseIds)
+        //var dayExercises = storedWorkoutPlans[planIndex].workoutDays[dayIndex].exercises
+        //dayExercises.push(...selectedExerciseIds)
 
+        // const updatedWorkoutPlans = workoutPlans.map((plan) => {
+        //     if (plan.id === planToBeEdited) {
+        //       const updatedWorkoutDays = plan.workoutDays.map((day) => {
+        //         if (day.id === dayToBeEdited) {
+        //           return {
+        //             ...day,
+        //             exercises: [...day.exercises, ...selectedExerciseIds],
+        //           };
+        //         }
+        //         return day;
+        //       });
 
+        //       return {
+        //         ...plan,
+        //         workoutDays: updatedWorkoutDays,
+        //       };
+        //     }
+        //     return plan;
+        // });
+
+        // dispatch(updateWorkoutPlans(updatedWorkoutPlans));
+
+        // console.log(workoutPlans)
     };
 
 
