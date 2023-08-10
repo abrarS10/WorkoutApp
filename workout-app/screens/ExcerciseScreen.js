@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import exercises from '../data/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateWorkoutPlans } from '../store/reducers/workoutPlansReducer';
+import { addSelectedExercisesToDay } from '../store/reducers/workoutPlansReducer';
 
 
 
@@ -19,15 +20,21 @@ function ExcerciseScreen({route}) {
     var planIndex = null
     var dayIndex = null
 
-    const workoutPlans = useSelector(state => state.workoutPlans.workoutPlans)
+    const workoutPlans = useSelector(state => state.workoutPlans.plans)
 
 
 
     const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
     const dayToBeEdited = useSelector(state => state.workoutPlans.dayToBeEdited)
 
-        // planIndex = storedWorkoutPlans.findIndex(plan => plan.id === planToBeEdited);
-        // dayIndex = storedWorkoutPlans[planIndex].workoutDays.findIndex(day => day.id === dayToBeEdited);
+    //console.log(planToBeEdited, dayToBeEdited)
+
+    if (showCheckboxes){
+        planIndex = workoutPlans.findIndex(plan => plan.id === planToBeEdited);
+        dayIndex = workoutPlans[planIndex].workoutDays.findIndex(day => day.id === dayToBeEdited);
+
+    }
+
 
 
     const handleExercisePress = (exercise) => {
@@ -81,8 +88,11 @@ function ExcerciseScreen({route}) {
         // TODO: Pass selectedExercises back to WorkoutPlanDetailScreen
 
         //console.log(selectedExerciseIds)
-        //var dayExercises = storedWorkoutPlans[planIndex].workoutDays[dayIndex].exercises
+        //console.log(workoutPlans[planIndex].workoutDays[dayIndex].exercises)
         //dayExercises.push(...selectedExerciseIds)
+
+        dispatch(addSelectedExercisesToDay({planIndex, dayIndex, selectedExerciseIds}));
+        navigation.goBack();
 
         // const updatedWorkoutPlans = workoutPlans.map((plan) => {
         //     if (plan.id === planToBeEdited) {

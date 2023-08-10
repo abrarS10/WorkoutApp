@@ -13,8 +13,6 @@ const WorkoutPlansScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  // TODO: initialize workoutPlans in redux on app start, not here
-  dispatch(setWorkoutPlans(workoutPlans))
 
   // used to update state
   const savedWorkoutPlans = useSelector(state => state.workoutPlans.plans);
@@ -25,7 +23,7 @@ const WorkoutPlansScreen = () => {
   const otherWorkoutPlans = savedWorkoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);
 
   const handlePlanPress = (workoutPlan) => {
-    dispatch(setDayToBeEdited(workoutPlan.id))
+    dispatch(setPlanToBeEdited(workoutPlan.id))
     navigation.navigate('WorkoutPlanDetailScreen', {workoutPlan});
   };
 

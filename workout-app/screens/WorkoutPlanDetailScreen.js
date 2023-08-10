@@ -4,7 +4,7 @@ import { Button, Card } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { setDayToBeEdited } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlanDetailScreen = ({route}) => {
@@ -12,11 +12,13 @@ const WorkoutPlanDetailScreen = ({route}) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    //const workoutPlan = useSelector(state => state.workoutPlans.workoutPlans)
 
     const workoutPlan = route.params?.workoutPlan;
-    const workoutDays = workoutPlan?.workoutDays;
 
+    const plans = useSelector(state => state.workoutPlans.plans)
+
+    const selectedPlan = plans.find(plan => plan.id === workoutPlan?.id)
+    const workoutDays = selectedPlan?.workoutDays;
 
 
     const handleNewExercisePress = (day) => {
@@ -27,19 +29,21 @@ const WorkoutPlanDetailScreen = ({route}) => {
     const DayCard = ({day}) => {
         return (
             <View style={styles.dayCard}>
-                <Card style={styles.cardContent}>
-                    <Card.Title title={day.name} />
-                    {day.exercises.length === 0 ? (
-                        <Text>No exercises for this day.</Text>
-                    ) : (
-                        day.exercises.map((exerciseData, index) => (
-                        <ExerciseCard key={index} exerciseData={exerciseData} />
-                        ))
-                    )}
-                    <Button icon="plus"  onPress={() => handleNewExercisePress(day.id)}>
-                        Add new exercise
-                    </Button>
-                </Card>
+                <ScrollView>
+                    <Card style={styles.cardContent}>
+                        <Card.Title title={day.name} />
+                        {day.exercises.length === 0 ? (
+                            <Text>No exercises for this day.</Text>
+                        ) : (
+                            day.exercises.map((exerciseData, index) => (
+                            <ExerciseCard key={index} exerciseData={exerciseData} />
+                            ))
+                        )}
+                        <Button icon="plus"  onPress={() => handleNewExercisePress(day.id)}>
+                            Add new exercise
+                        </Button>
+                    </Card>
+                </ScrollView>
             </View>
         );
     };

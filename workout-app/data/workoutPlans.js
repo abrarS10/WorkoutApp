@@ -31,6 +31,7 @@ const workoutPlans = [
                     },
                     {
                         id: 3,
+                        setPlan: [],
                     }
                 ]
 
