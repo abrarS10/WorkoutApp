@@ -13,11 +13,10 @@ const WorkoutPlansScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-
   // used to update state
   const savedWorkoutPlans = useSelector(state => state.workoutPlans.plans);
   const selectedWorkoutPlanId = useSelector(state => state.user.selectedWorkoutPlan);
-  const isPremiumMember = useSelector(state => state.user.premiumMember);
+
 
   const selectedWorkoutPlan = savedWorkoutPlans.find((workout) => workout.id === selectedWorkoutPlanId);
   const otherWorkoutPlans = savedWorkoutPlans.filter((workout) => workout.id !== selectedWorkoutPlanId);

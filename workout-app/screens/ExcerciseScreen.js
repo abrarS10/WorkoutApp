@@ -8,7 +8,7 @@ import { updateWorkoutPlans } from '../store/reducers/workoutPlansReducer';
 import { addSelectedExercisesToDay } from '../store/reducers/workoutPlansReducer';
 
 
-
+//TODO: Add all muscle groups
 const muscleGroups = ["All", "Chest", "Legs"];
 
 function ExcerciseScreen({route}) {
@@ -17,13 +17,16 @@ function ExcerciseScreen({route}) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredExercises, setFilteredExercises] = useState(exercises);
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('All');
+    const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
+
     var planIndex = null
     var dayIndex = null
 
     const workoutPlans = useSelector(state => state.workoutPlans.plans)
-
-
-
     const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
     const dayToBeEdited = useSelector(state => state.workoutPlans.dayToBeEdited)
 
@@ -34,19 +37,9 @@ function ExcerciseScreen({route}) {
 
     }
 
-
-
     const handleExercisePress = (exercise) => {
         navigation.navigate('ExerciseDetail', {exercise});
     };
-
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredExercises, setFilteredExercises] = useState(exercises);
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('All');
-    const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
-
-
 
     const onChangeSearch = (query) => {
         setSearchQuery(query);
@@ -84,11 +77,8 @@ function ExcerciseScreen({route}) {
     };
 
     const handleAddExercises = () => {
-        // TODO: Pass selectedExercises back to WorkoutPlanDetailScreen
-
         dispatch(addSelectedExercisesToDay({planIndex, dayIndex, selectedExerciseIds}));
         navigation.goBack();
-
     };
 
 

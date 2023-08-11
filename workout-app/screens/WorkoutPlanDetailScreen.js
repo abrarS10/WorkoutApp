@@ -26,6 +26,23 @@ const WorkoutPlanDetailScreen = ({route}) => {
         navigation.navigate('ExcerciseScreen', {showCheckboxes: true});
     };
 
+    function getSetsText(setPlan) {
+        const numSets = setPlan.length;
+        return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
+    }
+
+    const getRepsText = (setPlan) => {
+        const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
+
+        if ( repsArray.length <= 0 ) { return ``}
+
+        const minReps = Math.min(...repsArray);
+        const maxReps = Math.max(...repsArray);
+
+        if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
+        return `x ${minReps}-${maxReps} reps`;
+    };
+
     const DayCard = ({day}) => {
         return (
             <View style={styles.dayCard}>
@@ -70,22 +87,6 @@ const WorkoutPlanDetailScreen = ({route}) => {
         );
     }
 
-    function getSetsText(setPlan) {
-        const numSets = setPlan.length;
-        return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
-    }
-
-    const getRepsText = (setPlan) => {
-        const repsArray = setPlan.map((set) => set.reps).filter(rep => rep !== null);
-
-        if ( repsArray.length <= 0 ) { return ``}
-
-        const minReps = Math.min(...repsArray);
-        const maxReps = Math.max(...repsArray);
-
-        if (minReps == maxReps || minReps == 0) {return `x ${maxReps} reps`}
-        return `x ${minReps}-${maxReps} reps`;
-    };
 
     return (
         <View style={styles.container}>
