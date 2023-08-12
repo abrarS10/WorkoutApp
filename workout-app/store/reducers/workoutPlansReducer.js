@@ -33,6 +33,23 @@ const workoutPlansSlice = createSlice({
             const {planIndex, newDay} = action.payload
             state.plans[planIndex].workoutDays.push(newDay);
         },
+        deleteDayFromWorkoutPlan: (state, action) => {
+            const {planIndex, dayIndex} = action.payload;
+
+            if (planIndex !== -1) {
+                const remainingDays = state.plans[planIndex].workoutDays;
+
+                if (dayIndex !== -1 && dayIndex < remainingDays.length) {
+                    // Remove the day
+                    remainingDays.splice(dayIndex, 1);
+
+                    // Update weekday property of the remaining days
+                    for (let i = dayIndex; i < remainingDays.length; i++) {
+                        remainingDays[i].weekDay = i + 1;
+                    }
+                }
+            }
+        }
     }
 })
 
@@ -43,6 +60,7 @@ export const {
     updateWorkoutPlans,
     addSelectedExercisesToDay,
     addDayToWorkoutPlan,
+    deleteDayFromWorkoutPlan,
 } = workoutPlansSlice.actions;
 
 export default workoutPlansSlice.reducer;

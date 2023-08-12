@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
-import React from 'react'
-import { Button, Card, FAB } from 'react-native-paper';
+import React, {useState} from 'react'
+import { Button, Card, FAB, IconButton, Menu } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { setDayToBeEdited, addDayToWorkoutPlan } from '../store/reducers/workoutPlansReducer';
+import { setDayToBeEdited, addDayToWorkoutPlan, deleteDayFromWorkoutPlan } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlanDetailScreen = ({route}) => {
 
@@ -80,12 +80,56 @@ const WorkoutPlanDetailScreen = ({route}) => {
     };
 
     const DayCard = ({day}) => {
+
+        const [menuVisible, setMenuVisible] = useState(false);
+
+        const openMenu = () => setMenuVisible(true);
+        const closeMenu = () => setMenuVisible(false);
+
+        const handleDeleteDayPress = (dayId) => {
+            closeMenu();
+            dayIndex = plans[planIndex].workoutDays.findIndex(day => day.id === dayId);
+
+            Alert.alert(
+                'Confirm Delete',
+                'Are you sure you want to delete this day?',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Delete',
+                        style: 'destructive',
+                        onPress: () => {
+                            // Implement the logic to delete the day here
+                            dispatch(deleteDayFromWorkoutPlan({planIndex, dayIndex}))
+                        },
+                    },
+                ]
+            );
+        }
+
         return (
             <View style={styles.dayCard}>
                 <Text>{mapDayToWeekday(day.weekDay)}</Text>
                 <ScrollView>
                     <Card style={styles.cardContent}>
-                        <Card.Title title={day.name} />
+                        <View style={styles.titleContainer}>
+                            <Card.Title title={day.name} />
+                            <Menu
+                                visible={menuVisible}
+                                onDismiss={closeMenu}
+                                anchor={
+                                    <IconButton
+                                        icon="dots-vertical"
+                                        onPress={openMenu}
+                                    />
+                                }
+                            >
+                                <Menu.Item onPress={() => handleDeleteDayPress(day.id)} title="Delete" />
+                            </Menu>
+                        </View>
                         {day.exercises.length === 0 ? (
                             <Text>No exercises for this day.</Text>
                         ) : (
@@ -199,9 +243,15 @@ const styles = StyleSheet.create({
         bottom: 16,
         right: 16,
     },
-        fab: {
+    fab: {
         backgroundColor: '#93ff78', // Customize the color of the button
     },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingRight: 20
+    }
 })
 
 export default WorkoutPlanDetailScreen
