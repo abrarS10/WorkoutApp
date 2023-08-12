@@ -29,6 +29,13 @@ const workoutPlansSlice = createSlice({
 
             dayExercises.push(...selectedExerciseIds.map((id) => ({ id, setPlan: [] })));
         },
+        deleteExerciseFromDay: (state, action) => {
+            const {planIndex, dayIndex, exerciseId} = action.payload
+
+            const day = state.plans[planIndex].workoutDays[dayIndex];
+
+            day.exercises = day.exercises.filter(exercise => exercise.id != exerciseId)
+        },
         addDayToWorkoutPlan: (state, action) => {
             const {planIndex, newDay} = action.payload
             state.plans[planIndex].workoutDays.push(newDay);
@@ -59,6 +66,7 @@ export const {
     setDayToBeEdited,
     updateWorkoutPlans,
     addSelectedExercisesToDay,
+    deleteExerciseFromDay,
     addDayToWorkoutPlan,
     deleteDayFromWorkoutPlan,
 } = workoutPlansSlice.actions;

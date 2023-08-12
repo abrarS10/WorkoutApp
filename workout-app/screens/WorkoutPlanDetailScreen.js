@@ -5,7 +5,7 @@ import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { setDayToBeEdited, addDayToWorkoutPlan, deleteDayFromWorkoutPlan } from '../store/reducers/workoutPlansReducer';
+import { setDayToBeEdited, addDayToWorkoutPlan, deleteDayFromWorkoutPlan, deleteExerciseFromDay } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlanDetailScreen = ({route}) => {
 
@@ -62,6 +62,10 @@ const WorkoutPlanDetailScreen = ({route}) => {
         swiperRef.current.scrollBy(workoutDays.length);
     }
 
+    function getDayIndex(dayId) {
+        return plans[planIndex].workoutDays.findIndex(day => day.id === dayId);
+    }
+
     function getSetsText(setPlan) {
         const numSets = setPlan.length;
         return numSets === 1 ? `${numSets} set` : `${numSets} sets`;
@@ -88,7 +92,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
         const handleDeleteDayPress = (dayId) => {
             closeMenu();
-            dayIndex = plans[planIndex].workoutDays.findIndex(day => day.id === dayId);
+            dayIndex = getDayIndex(dayId);
 
             Alert.alert(
                 'Confirm Delete',
@@ -134,7 +138,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
                             <Text>No exercises for this day.</Text>
                         ) : (
                             day.exercises.map((exerciseData, index) => (
-                            <ExerciseCard key={index} exerciseData={exerciseData} />
+                            <ExerciseCard key={index} exerciseData={exerciseData} day={day.id} />
                             ))
                         )}
                         <Button icon="plus"  onPress={() => handleNewExercisePress(day.id)}>
@@ -146,7 +150,20 @@ const WorkoutPlanDetailScreen = ({route}) => {
         );
     };
 
-    const ExerciseCard = ({ exerciseData }) => {
+    const ExerciseCard = ({ exerciseData, day }) => {
+
+        const [menuVisible, setMenuVisible] = useState(false);
+
+        const openMenu = () => setMenuVisible(true);
+        const closeMenu = () => setMenuVisible(false);
+
+        const handleDeleteExercisePress = (exerciseId) => {
+            closeMenu();
+            dayIndex = getDayIndex(day);
+
+            dispatch(deleteExerciseFromDay({planIndex, dayIndex, exerciseId}))
+
+        }
 
         const exerciseId = exerciseData.id
         // find relevant exercise in exercises object using exercise id
@@ -154,7 +171,21 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
         return (
             <Card style={styles.exerciseCard}>
-                <Card.Title title={exercise.name} />
+                <View style={styles.exerciseNameContainer}>
+                    <Card.Title title={exercise.name} />
+                    <Menu
+                        visible={menuVisible}
+                        onDismiss={closeMenu}
+                        anchor={
+                            <IconButton
+                                icon="dots-vertical"
+                                onPress={openMenu}
+                            />
+                        }
+                    >
+                        <Menu.Item onPress={() => handleDeleteExercisePress(exercise.id)} title="Delete" />
+                    </Menu>
+                </View>
                 <Card.Content>
                     {exerciseData.setPlan && exerciseData.setPlan.length > 0 ? (
                         <Text>
@@ -247,6 +278,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#93ff78', // Customize the color of the button
     },
     titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingRight: 20
+    },
+    exerciseNameContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
