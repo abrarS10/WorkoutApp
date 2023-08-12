@@ -34,7 +34,6 @@ function ExcerciseScreen({route}) {
     if (showCheckboxes){
         planIndex = workoutPlans.findIndex(plan => plan.id === planToBeEdited);
         dayIndex = workoutPlans[planIndex].workoutDays.findIndex(day => day.id === dayToBeEdited);
-
     }
 
     const handleExercisePress = (exercise) => {

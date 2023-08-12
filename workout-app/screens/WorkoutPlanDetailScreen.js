@@ -1,24 +1,27 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
-import { Button, Card } from 'react-native-paper';
+import { Button, Card, FAB } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { setDayToBeEdited } from '../store/reducers/workoutPlansReducer';
+import { setDayToBeEdited, addDayToWorkoutPlan } from '../store/reducers/workoutPlansReducer';
 
 const WorkoutPlanDetailScreen = ({route}) => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const swiperRef = React.createRef();
 
 
     const workoutPlan = route.params?.workoutPlan;
 
     const plans = useSelector(state => state.workoutPlans.plans)
 
-    const selectedPlan = plans.find(plan => plan.id === workoutPlan?.id)
-    const workoutDays = selectedPlan?.workoutDays;
+    const planToBeEdited = useSelector(state => state.workoutPlans.planToBeEdited)
+    planIndex = plans.findIndex(plan => plan.id === planToBeEdited);
+
+    const workoutDays = plans[planIndex]?.workoutDays;
 
     const mapDayToWeekday = (dayNumber) => {
         const dayToWeekdayMap = {
@@ -39,6 +42,20 @@ const WorkoutPlanDetailScreen = ({route}) => {
         dispatch(setDayToBeEdited(day))
         navigation.navigate('ExcerciseScreen', {showCheckboxes: true});
     };
+
+    const handleAddDayPress = () => {
+        const newWorkoutNumber = workoutDays.length + 1
+
+        const newDay = {
+            id: Date.now(),
+            name: `Workout Day ${newWorkoutNumber}`,
+            weekDay: newWorkoutNumber,
+            exercises: []
+        }
+
+        dispatch(addDayToWorkoutPlan({planIndex, newDay}))
+        swiperRef.current.scrollBy(workoutDays.length);
+    }
 
     function getSetsText(setPlan) {
         const numSets = setPlan.length;
@@ -111,15 +128,24 @@ const WorkoutPlanDetailScreen = ({route}) => {
                 loop={false}
                 dotStyle={styles.dot}
                 activeDotStyle={styles.activeDot}
+                ref={swiperRef}
             >
                 {workoutDays.length === 0 ? (
-                    <Text>No workout plans created.</Text>
+                    <Text>No workout days created.</Text>
                 ) : (
                     workoutDays.map((day, index) => (
                         <DayCard key={index} day={day} />
                     ))
                 )}
             </Swiper>
+            <View style={styles.fabContainer}>
+                <FAB
+                style={styles.fab}
+                icon="plus"
+                onPress={handleAddDayPress}
+                label='Add day'
+                />
+            </View>
         </View>
     )
 }
@@ -162,6 +188,14 @@ const styles = StyleSheet.create({
         height: 12,
         borderRadius: 6,
         marginHorizontal: 5,
+    },
+    fabContainer: {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    },
+        fab: {
+        backgroundColor: '#93ff78', // Customize the color of the button
     },
 })
 

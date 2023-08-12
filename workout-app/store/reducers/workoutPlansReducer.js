@@ -29,6 +29,10 @@ const workoutPlansSlice = createSlice({
 
             dayExercises.push(...selectedExerciseIds.map((id) => ({ id, setPlan: [] })));
         },
+        addDayToWorkoutPlan: (state, action) => {
+            const {planIndex, newDay} = action.payload
+            state.plans[planIndex].workoutDays.push(newDay);
+        },
     }
 })
 
@@ -38,6 +42,7 @@ export const {
     setDayToBeEdited,
     updateWorkoutPlans,
     addSelectedExercisesToDay,
+    addDayToWorkoutPlan,
 } = workoutPlansSlice.actions;
 
 export default workoutPlansSlice.reducer;
