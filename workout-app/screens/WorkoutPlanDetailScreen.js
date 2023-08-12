@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React from 'react'
 import { Button, Card, FAB } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
@@ -44,6 +44,11 @@ const WorkoutPlanDetailScreen = ({route}) => {
     };
 
     const handleAddDayPress = () => {
+        if (workoutDays.length >= 7) {
+            Alert.alert('Error', "Can't create more than 7 days!");
+            return
+        }
+
         const newWorkoutNumber = workoutDays.length + 1
 
         const newDay = {
