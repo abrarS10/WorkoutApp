@@ -7,7 +7,7 @@ const workoutPlans = [
             {
                 id: 1,
                 name: 'Push day',
-                day: 'Monday',
+                weekDay: 1,
                 exercises: [
                     {
                         id: 1,
@@ -39,7 +39,7 @@ const workoutPlans = [
             {
                 id: 2,
                 name: 'Pull day',
-                day: 'Tuesday',
+                weekDay: 2,
                 exercises: [],
             }
         ]

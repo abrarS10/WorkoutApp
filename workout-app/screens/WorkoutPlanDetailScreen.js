@@ -20,6 +20,20 @@ const WorkoutPlanDetailScreen = ({route}) => {
     const selectedPlan = plans.find(plan => plan.id === workoutPlan?.id)
     const workoutDays = selectedPlan?.workoutDays;
 
+    const mapDayToWeekday = (dayNumber) => {
+        const dayToWeekdayMap = {
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Saturday',
+            7: 'Sunday'
+        }
+
+        return dayToWeekdayMap[dayNumber];
+    };
+
 
     const handleNewExercisePress = (day) => {
         dispatch(setDayToBeEdited(day))
@@ -46,6 +60,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
     const DayCard = ({day}) => {
         return (
             <View style={styles.dayCard}>
+                <Text>{mapDayToWeekday(day.weekDay)}</Text>
                 <ScrollView>
                     <Card style={styles.cardContent}>
                         <Card.Title title={day.name} />
