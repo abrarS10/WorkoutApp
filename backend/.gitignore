@@ -1,0 +1,27 @@
+# Virtual environment
+venv/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# Secret key
+app/secret_key.py
+
+# Database
+db.sqlite3
+
+# Logs
+*.log
+
+# macOS system files
+.DS_Store
+
+# Editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment-specific files
+.env
