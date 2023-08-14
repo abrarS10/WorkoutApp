@@ -83,6 +83,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
         return `x ${minReps}-${maxReps} reps`;
     };
 
+    //* Reusable day card component
     const DayCard = ({day}) => {
 
         const [menuVisible, setMenuVisible] = useState(false);
@@ -150,6 +151,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
         );
     };
 
+    //* Reusable exercise Card component
     const ExerciseCard = ({ exerciseData, day }) => {
 
         const [menuVisible, setMenuVisible] = useState(false);
