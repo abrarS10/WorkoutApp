@@ -1,0 +1,32 @@
+# Node.js
+node_modules/
+npm-debug.log
+.env
+
+# Compiled files
+dist/
+*.log
+*.pid
+
+# macOS
+.DS_Store
+
+# Editor-specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.komodoide
+
+# Logs and databases
+logs/
+*.log
+*.sqlite
+
+# Dependency directories
+typings/
+jspm_packages/
+
+# Debug log
+npm-debug.log
