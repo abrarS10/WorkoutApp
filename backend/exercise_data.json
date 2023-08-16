@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Bench Press",
+        "primaryMuscle": "Chest",
+        "additionalMuscles": ["Shoulders", "Triceps"],
+        "description": "Lie flat on a bench and push the bar up",
+        "equipment": ["Flat bench", "Barbell", "Weight plates"],
+        "gifUrl": "www.abc.com"
+    },
+    {
+        "name": "Squat",
+        "primaryMuscle": "Legs",
+        "additionalMuscles": ["Glutes", "Quads"],
+        "description": "Hold bar on traps and squat down and back up",
+        "equipment": ["Squat rack", "Barbell", "Weight plates"],
+        "gifUrl": "www.abc.com"
+    },
+    {
+        "name": "Deadlift",
+        "primaryMuscle": "Back",
+        "additionalMuscles": ["Back", "Traps"],
+        "description": "lift the bar up",
+        "equipment": ["Barbell", "Weight plates"],
+        "gifUrl": "www.abc.com"
+    },
+    {
+        "name": "T-bar row",
+        "primaryMuscle": "Back",
+        "additionalMuscles": ["Upper back", "Lats"],
+        "description": "Hold bar and pull up to chest",
+        "equipment": ["Barbell", "Weight plates"],
+        "gifUrl": "www.abc.com"
+    },
+    {
+        "name": "DB Shoulder press",
+        "primaryMuscle": "Shoulders",
+        "additionalMuscles": ["Triceps"],
+        "description": "Push dumbells over your head",
+        "equipment": ["Adjustable bench", "Dumbells"],
+        "gifUrl": "www.abc.com"
+    }
+
+
+]

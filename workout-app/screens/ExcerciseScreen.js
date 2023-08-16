@@ -9,7 +9,7 @@ import { addSelectedExercisesToDay } from '../store/reducers/workoutPlansReducer
 
 
 //TODO: Add all muscle groups
-const muscleGroups = ["All", "Chest", "Legs"];
+const muscleGroups = ["All", "Chest", "Legs", "Shoulders", "Back", "Arms"];
 
 function ExcerciseScreen({route}) {
 
