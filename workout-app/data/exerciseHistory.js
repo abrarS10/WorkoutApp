@@ -1,7 +1,7 @@
 const exerciseHistory = [
     {
         historyId: '1',
-        exerciseId: 1,
+        exerciseId: '64dc7931ee7bdeb5ca716928',
         date: '2023-07-25',
         setPlan: [
             {
