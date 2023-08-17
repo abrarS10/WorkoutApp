@@ -1,16 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const exerciseRoutes = require('./routes/exercises');
+const config = require('./config')
 
 const app = express();
 
-var cors = require('cors');
-app.use(cors());
+const dbUrl = config.dbUrl;
 
-mongoose.connect('mongodb://localhost/exercise_db', {
+var options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-});
+}
+
+mongoose.connect(dbUrl, options);
 
 app.get('/', (req, res) => {
     res.json({message: 'Welcome to the Exercise API'});
