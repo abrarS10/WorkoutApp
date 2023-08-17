@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, {useState} from 'react'
 import { Button, Card, FAB, IconButton, Menu } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
-import exercises from '../data/exercises';
+//import exercises from '../data/exercises';
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { setDayToBeEdited, addDayToWorkoutPlan, deleteDayFromWorkoutPlan, deleteExerciseFromDay } from '../store/reducers/workoutPlansReducer';
@@ -13,6 +13,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
     const dispatch = useDispatch();
     const swiperRef = React.createRef();
 
+    exercises = useSelector(state => state.exerciseList.exercises)
 
     const workoutPlan = route.params?.workoutPlan;
 
@@ -169,7 +170,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
 
         const exerciseId = exerciseData.id
         // find relevant exercise in exercises object using exercise id
-        const exercise = exercises.find((exercise) => exercise.id === exerciseId);
+        const exercise = exercises.find((exercise) => exercise._id === exerciseId);
 
         return (
             <Card style={styles.exerciseCard}>
@@ -185,7 +186,7 @@ const WorkoutPlanDetailScreen = ({route}) => {
                             />
                         }
                     >
-                        <Menu.Item onPress={() => handleDeleteExercisePress(exercise.id)} title="Delete" />
+                        <Menu.Item onPress={() => handleDeleteExercisePress(exercise._id)} title="Delete" />
                     </Menu>
                 </View>
                 <Card.Content>

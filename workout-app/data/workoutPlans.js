@@ -10,7 +10,7 @@ const workoutPlans = [
                 weekDay: 1,
                 exercises: [
                     {
-                        id: 1,
+                        id: '64dc7931ee7bdeb5ca716927',
                         setPlan: [
                             {
                                 reps: 5,
@@ -30,7 +30,7 @@ const workoutPlans = [
                         ]
                     },
                     {
-                        id: 3,
+                        id: '64dc7931ee7bdeb5ca716928',
                         setPlan: [],
                     }
                 ]
