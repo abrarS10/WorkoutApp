@@ -4,6 +4,9 @@ const exerciseRoutes = require('./routes/exercises');
 
 const app = express();
 
+var cors = require('cors');
+app.use(cors());
+
 mongoose.connect('mongodb://localhost/exercise_db', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
