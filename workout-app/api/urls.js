@@ -1,3 +1,3 @@
-const API_URL = 'http://192.168.100.12:3000/api';
+const API_URL = 'https://exercises-service.onrender.com/api';
 
 export default API_URL;
