@@ -29,10 +29,13 @@ The Workout App allows you to:
 To use the Workout App:
 
 1. Clone this repository to your local machine.
-2. Open a terminal and navigate to the `workout-app` directory. ```cd workout-app```
-3. Install the required dependencies by running: ```npm install```
-4. Run the expo app on your machine by running: ```expo start```
-5. After running these commands, Expo will start and display a QR code in the terminal. You can use the Expo Go app on your device to scan the QR code and launch the app on your device, or launch it via an emulator installed on your local machine.
+2. Open a terminal and navigate to the app directory.
+   ```cd workout-app```
+4. Install the required dependencies by running:
+   ```npm install```
+6. Run the expo app on your machine by running:
+   ```expo start```
+8. After running these commands, Expo will start and display a QR code in the terminal. You can use the Expo Go app on your device to scan the QR code and launch the app on your device, or launch it via an emulator installed on your local machine.
 
 
 ## About
