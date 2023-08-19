@@ -10,13 +10,6 @@ The Workout App allows you to:
 - Create and customize your own workout plans.
 - Add exercises to your workout days and track your progress.
 
-## Usage
-
-1. Browse the available exercises and their descriptions.
-2. Create your personalized workout plans.
-3. Add exercises to your workout days.
-4. Track your workout progress over time.
-
 ## Technical Details
 
 - **Frontend**: Built using React Native framework.
