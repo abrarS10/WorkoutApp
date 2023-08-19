@@ -17,6 +17,23 @@ The Workout App allows you to:
 3. Add exercises to your workout days.
 4. Track your workout progress over time.
 
+## Technical Details
+
+- **Frontend**: Built using React Native framework.
+- **Backend**: Powered by Express.js, a Node.js framework.
+- **Database**: MongoDB hosted on MongoDB Atlas.
+- **Deployment**: Backend deployed on Render.com.
+
+## Installation
+
+To use the Workout App:
+
+1. Clone this repository to your local machine.
+2. Open a terminal and navigate to the `workout-app` directory.
+3. Install the required dependencies by running: npm install
+4. Run the expo app on your machine by running: expo start
+5. Run the app on your device through the Expo Go app or via an emulator on your local machine
+
 
 ## About
 
