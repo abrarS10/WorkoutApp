@@ -12,7 +12,8 @@ var options = {
     useUnifiedTopology: true,
 }
 
-mongoose.connect(dbUrl, options);
+mongoose.connect(process.env.DATABASE_URL || dbUrl, options);
+
 
 app.get('/', (req, res) => {
     res.json({message: 'Welcome to the Exercise API'});
