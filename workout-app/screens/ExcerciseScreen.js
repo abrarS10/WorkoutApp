@@ -1,21 +1,23 @@
 import { View, StyleSheet, Pressable } from 'react-native'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Card, Avatar, Searchbar, Menu, Button, Checkbox} from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
-import exercises from '../data/exercises';
+//import exercises from '../data/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateWorkoutPlans } from '../store/reducers/workoutPlansReducer';
 import { addSelectedExercisesToDay } from '../store/reducers/workoutPlansReducer';
 
 
 //TODO: Add all muscle groups
-const muscleGroups = ["All", "Chest", "Legs"];
+const muscleGroups = ["All", "Chest", "Legs", "Shoulders", "Back", "Arms"];
 
 function ExcerciseScreen({route}) {
 
     const showCheckboxes = route.params?.showCheckboxes;
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+    const exercises = useSelector(state => state.exerciseList.exercises)
 
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredExercises, setFilteredExercises] = useState(exercises);
@@ -108,7 +110,7 @@ function ExcerciseScreen({route}) {
             </View>
             <View style={styles.exerciseListContainer}>
                 {filteredExercises.map((exercise) => (
-                    <Pressable key={exercise.id} onPress={() => handleExercisePress(exercise)}>
+                    <Pressable key={exercise._id} onPress={() => handleExercisePress(exercise)}>
                         <Card mode='elevated' style={styles.exerciseCard}>
                             <Card.Title
                                 title={exercise.name}
@@ -117,8 +119,8 @@ function ExcerciseScreen({route}) {
                                 left={(props) => <Avatar.Image {...props} icon="folder" />}
                                 right={() => showCheckboxes && (
                                     <Checkbox
-                                        status={selectedExerciseIds.includes(exercise.id) ? 'checked' : 'unchecked'}
-                                        onPress={() => toggleExerciseSelection(exercise.id)}
+                                        status={selectedExerciseIds.includes(exercise._id) ? 'checked' : 'unchecked'}
+                                        onPress={() => toggleExerciseSelection(exercise._id)}
                                     />
                                 )}
                             />

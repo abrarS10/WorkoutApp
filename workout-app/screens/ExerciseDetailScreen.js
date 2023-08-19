@@ -11,7 +11,7 @@ const ExerciseDetailScreen = ({route}) => {
     const exerciseId = exercise.id;
 
     const exerciseHistoryForCurrentExercise = exerciseHistory
-      .filter((historyEntry) => historyEntry.exerciseId === exercise.id)
+      .filter((historyEntry) => historyEntry.exerciseId === exercise._id)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
 
       //Get the most recent date for the current exercise
