@@ -1,13 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider} from 'react-native-paper';
 import { Provider } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import store from './store';
 import AppTabNavigator from './navigation/AppTabNavigator';
 import { useEffect } from 'react';
-import { fetchExercises } from './store/reducers/exerciseReducer';
-import { loadExercisesFromStorage } from './store/reducers/exerciseReducer';
-import { setExercises } from './store/reducers/exerciseReducer';
+import { fetchExercises, loadExercisesFromStorage, setExercises } from './store/reducers/exerciseReducer';
 
 export default function AppWrapper() {
 
