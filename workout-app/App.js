@@ -6,6 +6,8 @@ import store from './store';
 import AppTabNavigator from './navigation/AppTabNavigator';
 import { useEffect } from 'react';
 import { fetchExercises } from './store/reducers/exerciseReducer';
+import { loadExercisesFromStorage } from './store/reducers/exerciseReducer';
+import { setExercises } from './store/reducers/exerciseReducer';
 
 export default function AppWrapper() {
 
@@ -20,7 +22,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchExercises());
+    const loadExercises = async () => {
+      const exercisesFromStorage = await loadExercisesFromStorage();
+
+      if(exercisesFromStorage) {
+        dispatch(setExercises(exercisesFromStorage));
+      } else {
+        dispatch(fetchExercises());
+      }
+    }
+    loadExercises();
   }, []);
 
   return (
